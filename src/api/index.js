@@ -5,6 +5,7 @@ const project = require("./projects");
 const networks = require("./networks");
 const cables = require("./cables");
 const devices = require("./devices");
+const tokenValid = require("./token-valid");
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use("/project", project);
 router.use("/network", networks);
 router.use("/cable", cables);
 router.use("/device", devices);
+router.use("/token/isvalid", tokenValid);
 
 module.exports = router;
