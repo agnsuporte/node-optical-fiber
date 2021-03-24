@@ -5,5 +5,4 @@ const TokenValidController = require('../controllers/token-valid-controller');
 
 router.get('/', TokenValidController.index);
 
-
 module.exports = router;

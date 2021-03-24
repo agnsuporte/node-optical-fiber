@@ -1,17 +1,20 @@
-const { Network, Project } = require("../database/models");
+const { Network, Project } = require('../database/models');
 
 module.exports = {
   async index(request, response) {
-    const userAuth = request.userAuth;
+    const { userAuth } = request;
+    const { offset, limit } = request.query;
 
     try {
       const projects = await Project.findAll({
-        order: [["createdAt", "DESC"]],
+        order: [['createdAt', 'DESC']],
         where: { UserId: userAuth.id },
+        offset,
+        limit,
         include: [
           {
             model: Network,
-            attributes: ["networkName"],
+            attributes: ['networkName'],
           },
         ],
       });
@@ -23,7 +26,7 @@ module.exports = {
 
   async find(request, response) {
     const { id } = request.params;
-    const userAuth = request.userAuth;
+    const { userAuth } = request;
 
     try {
       const project = await Project.findOne({
@@ -31,7 +34,7 @@ module.exports = {
         include: [
           {
             model: Network,
-            attributes: ["networkName"],
+            attributes: ['networkName'],
           },
         ],
       });
@@ -45,7 +48,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const userAuth = request.userAuth;
+    const { userAuth } = request;
     const { projectName, projectCompany } = request.body;
 
     try {
@@ -68,7 +71,7 @@ module.exports = {
 
   async update(request, response) {
     const { id } = request.params;
-    const userAuth = request.userAuth;
+    const { userAuth } = request;
     const { projectName, projectCompany } = request.body;
 
     try {
@@ -77,7 +80,7 @@ module.exports = {
         { where: { id, UserId: userAuth.id } }
       );
 
-      const result = project > 0 ? true : false;
+      const result = project > 0;
 
       return response.status(200).json({ updateAt: result, project });
     } catch (error) {
@@ -87,7 +90,7 @@ module.exports = {
 
   async delete(request, response) {
     const { id } = request.params;
-    const userAuth = request.userAuth;
+    const { userAuth } = request;
 
     try {
       await Project.destroy({

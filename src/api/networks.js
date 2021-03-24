@@ -19,7 +19,7 @@ router.post('/new', celebrate({
     ProjectId: Joi.number().integer(),
     networkName: Joi.string().required().max(255),
   })
-}) , NetworkController.create);
+}), NetworkController.create);
 
 router.delete('/delete/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -28,7 +28,7 @@ router.delete('/delete/:id', celebrate({
   [Segments.HEADERS]: Joi.object({
     authorization: Joi.string().required()
   }).unknown()
-}) , NetworkController.delete);
+}), NetworkController.delete);
 
 router.put('/update/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -40,7 +40,6 @@ router.put('/update/:id', celebrate({
   [Segments.BODY]: Joi.object().keys({
     networkName: Joi.string().required().max(255),
   })
-}) , NetworkController.update);
-
+}), NetworkController.update);
 
 module.exports = router;

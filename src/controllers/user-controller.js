@@ -1,20 +1,20 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const { User, Project } = require("../database/models");
+const { User, Project } = require('../database/models');
 
 module.exports = {
   async index(request, response) {
-    const userAuth = request.userAuth;
+    const { userAuth } = request;
 
     try {
       const users = await User.findAll({
-        order: [["createdAt", "DESC"]],
+        order: [['createdAt', 'DESC']],
         where: { id: userAuth.id },
-        attributes: ["id", "userName", "userUsername", "userEmail"],
+        attributes: ['id', 'userName', 'userUsername', 'userEmail'],
         include: [
           {
             model: Project,
-            attributes: ["id", "projectName"],
+            attributes: ['id', 'projectName'],
           },
         ],
       });
@@ -48,7 +48,7 @@ module.exports = {
         };
 
         const secret = process.env.JWT_SECRET_PRIVATE_KEY;
-        const token = jwt.sign({ ..._user }, secret, { expiresIn: "1h" });
+        const token = jwt.sign({ ..._user }, secret, { expiresIn: '1h' });
 
         return response.status(200).json({ ..._user, token });
       }
@@ -59,15 +59,17 @@ module.exports = {
   },
 
   async create(request, response) {
-    const data = ({
-      userName,
-      userUsername,
-      userEmail,
-      userPassword,
-    } = request.body);
+    const {
+      userName, userUsername, userEmail, userPassword
+    } = request.body;
 
     try {
-      const user = await User.create(data);
+      const user = await User.create({
+        userName,
+        userUsername,
+        userEmail,
+        userPassword,
+      });
       return response.status(200).json({
         createAt: true,
         user,
@@ -82,8 +84,11 @@ module.exports = {
 
   async update(request, response) {
     const { id } = request.params;
-    const { userName, userUsername, userEmail, userPassword } = request.body;
+    const {
+      userName, userUsername, userEmail, userPassword
+    } = request.body;
 
+    // eslint-disable-next-line no-new-object
     const data = new Object();
 
     if (userName) data.userName = userName;
@@ -93,7 +98,7 @@ module.exports = {
 
     try {
       const user = await User.update(data, { where: { id } });
-      const result = user > 0 ? true : false;
+      const result = user > 0;
       return response.status(200).json({ updateAt: result, user });
     } catch (error) {
       return response.status(401).json({ updateAt: false, error });
@@ -111,6 +116,6 @@ module.exports = {
       return response.status(401).json(error);
     }
 
-    return response.status(204).json({ message: "Usuário excluído" });
+    return response.status(204).json({ message: 'Usuário excluído' });
   },
 };

@@ -3,7 +3,7 @@ const { celebrate, Joi, Segments } = require('celebrate');
 
 const router = express.Router();
 
-const { isToken } = require("../middlewares");
+const { isToken } = require('../middlewares');
 const ProjectController = require('../controllers/project-controller');
 
 router.get('/', isToken, ProjectController.index);
@@ -41,6 +41,5 @@ router.put('/update/:id', celebrate({
     projectCompany: Joi.string().required().max(255)
   })
 }), isToken, ProjectController.update);
-
 
 module.exports = router;

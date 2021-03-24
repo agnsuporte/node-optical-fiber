@@ -1,8 +1,8 @@
-const { Device, Project } = require("../database/models");
+const { Device, Project } = require('../database/models');
 
 module.exports = {
   async createModel(request, response) {
-    let message = { createAt: true, texto: "Sucesso!" };
+    let message = { createAt: true, texto: 'Sucesso!' };
     try {
       await Device.sync({ force: true });
     } catch (error) {
@@ -14,11 +14,11 @@ module.exports = {
 
   async index(request, response) {
     const devices = await Device.findAll({
-      order: [["createdAt", "DESC"]],
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: Project,
-          attributes: ["project_name"],
+          attributes: ['project_name'],
         },
       ],
     });
@@ -34,7 +34,7 @@ module.exports = {
         include: [
           {
             model: Project,
-            attributes: ["project_name"],
+            attributes: ['project_name'],
           },
         ],
       });
@@ -86,11 +86,11 @@ module.exports = {
     const { device_name, device_active } = request.body;
 
     try {
-      const Device = await Device.update(
+      const device = await Device.update(
         { device_name, device_active },
         { where: { id } }
       );
-      return response.status(200).json({ updateAt: true, data: Device });
+      return response.status(200).json({ updateAt: true, data: device });
     } catch (error) {
       return response.status(401).json({ updateAt: false, error });
     }

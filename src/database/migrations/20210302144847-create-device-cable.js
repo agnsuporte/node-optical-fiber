@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable no-unused-vars */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('DeviceCables', {
@@ -30,12 +30,12 @@ module.exports = {
       },
       typeLink: {
         type: Sequelize.STRING(1),
-        defaultValue: "I",
+        defaultValue: 'I',
         validate: {
           isIn: [['I', 'O']],
         }
       }
-      
+
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable no-unused-vars */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Networks', {
@@ -17,7 +17,7 @@ module.exports = {
           key: 'id'
         },
         allowNull: false
-      },      
+      },
       networkName: {
         type: Sequelize.STRING
       },

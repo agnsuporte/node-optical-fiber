@@ -5,7 +5,6 @@ const router = express.Router();
 
 const CableController = require('../controllers/cable-controller');
 
-
 router.get('/', CableController.index);
 
 router.get('/:id', CableController.find);
@@ -18,7 +17,7 @@ router.post('/new', celebrate({
     cable_name: Joi.string().required().max(255),
     cable_capacity: Joi.number().integer()
   })
-}) , CableController.create);
+}), CableController.create);
 
 router.delete('/delete/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -27,7 +26,7 @@ router.delete('/delete/:id', celebrate({
   [Segments.HEADERS]: Joi.object({
     authorization: Joi.string().required()
   }).unknown()
-}) , CableController.delete);
+}), CableController.delete);
 
 router.put('/update/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -40,7 +39,6 @@ router.put('/update/:id', celebrate({
     name: Joi.string().required().max(255),
     capacity: Joi.number().integer()
   }),
-}) , CableController.update);
-
+}), CableController.update);
 
 module.exports = router;

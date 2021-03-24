@@ -1,11 +1,11 @@
 // const Project = require("../db/models/Project");
 // const Network = require("../db/models/Network");
 
-const { Network, Project } = require('../database/models')
+const { Network, Project } = require('../database/models');
 
 module.exports = {
   async createModel(request, response) {
-    let message = { createAt: true, texto: "Sucesso!" };
+    let message = { createAt: true, texto: 'Sucesso!' };
     try {
       await Network.sync({ force: true });
     } catch (error) {
@@ -17,11 +17,11 @@ module.exports = {
 
   async index(request, response) {
     const networks = await Network.findAll({
-      order: [["createdAt", "DESC"]],
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: Project,
-          attributes: ["projectName"],
+          attributes: ['projectName'],
         }
       ],
     });
@@ -38,7 +38,7 @@ module.exports = {
         include: [
           {
             model: Project,
-            attributes: ["projectName"],
+            attributes: ['projectName'],
           },
         ],
       });
@@ -89,10 +89,10 @@ module.exports = {
     const { networkName } = request.body;
 
     try {
-      const project = await Network.update({ networkName }, { where: { id } });
+      const network = await Network.update({ networkName }, { where: { id } });
       return response
         .status(200)
-        .json({ updateAt: true, data: { networkName } });
+        .json({ updateAt: true, data: network });
     } catch (err) {
       return response.status(401).json({ updateAt: false, erro: err });
     }

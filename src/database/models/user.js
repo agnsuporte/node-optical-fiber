@@ -1,6 +1,5 @@
-"use strict";
-const CryptoJS = require("crypto-js");
-const { Model } = require("sequelize");
+const CryptoJS = require('crypto-js');
+const { Model } = require('sequelize');
 
 const secret = process.env.JWT_SECRET_PRIVATE_KEY;
 
@@ -18,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       const compare = CryptoJS.HmacSHA1(textCompare, secret).toString(
         CryptoJS.enc.Hex
       );
-      return compare === hash ? true : false;
+      return compare === hash;
     }
   }
 
@@ -36,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: 'User',
     }
   );
 
@@ -45,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
   //     user.userPassword = User.generateHash(user.userPassword);
   //   }
   // });
-
 
   return User;
 };

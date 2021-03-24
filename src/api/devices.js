@@ -5,7 +5,6 @@ const router = express.Router();
 
 const DeviceController = require('../controllers/device-controller');
 
-
 router.get('/', DeviceController.index);
 
 router.get('/:id', DeviceController.find);
@@ -18,7 +17,7 @@ router.post('/new', celebrate({
     device_name: Joi.string().required().max(255),
     device_active: Joi.boolean()
   })
-}) , DeviceController.create);
+}), DeviceController.create);
 
 router.delete('/delete/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -27,7 +26,7 @@ router.delete('/delete/:id', celebrate({
   [Segments.HEADERS]: Joi.object({
     authorization: Joi.string().required()
   }).unknown()
-}) , DeviceController.delete);
+}), DeviceController.delete);
 
 router.put('/update/:id', celebrate({
   [Segments.PARAMS]: Joi.object().keys({
@@ -40,7 +39,6 @@ router.put('/update/:id', celebrate({
     name: Joi.string().required().max(255),
     capacity: Joi.number().integer()
   }),
-}) , DeviceController.update);
-
+}), DeviceController.update);
 
 module.exports = router;

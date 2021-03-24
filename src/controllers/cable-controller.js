@@ -1,8 +1,8 @@
-const { Cable, Project } = require("../database/models");
+const { Cable, Project } = require('../database/models');
 
 module.exports = {
   async createModel(request, response) {
-    let message = { createAt: true, texto: "Sucesso!" };
+    let message = { createAt: true, texto: 'Sucesso!' };
     try {
       await Cable.sync({ force: true });
     } catch (error) {
@@ -14,11 +14,11 @@ module.exports = {
 
   async index(request, response) {
     const cables = await Cable.findAll({
-      order: [["createdAt", "DESC"]],
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: Project,
-          attributes: ["project_name"],
+          attributes: ['project_name'],
         },
       ],
     });
@@ -34,7 +34,7 @@ module.exports = {
         include: [
           {
             model: Project,
-            attributes: ["project_name"],
+            attributes: ['project_name'],
           },
         ],
       });

@@ -1,8 +1,8 @@
-"use strict";
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class DeviceCable extends Model {
+    // eslint-disable-next-line no-unused-vars
     static associate(models) {
       // define association here
     }
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "DeviceCable",
+      modelName: 'DeviceCable',
       timestamps: false,
     }
   );

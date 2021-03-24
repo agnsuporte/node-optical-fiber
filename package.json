@@ -1,5 +1,5 @@
 {
-  "name": "optical",
+  "name": "optical-fiber",
   "version": "1.0.0",
   "description": " A basic distribution cable",
   "main": "index.js",

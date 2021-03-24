@@ -3,9 +3,8 @@ const { celebrate, Joi, Segments } = require('celebrate');
 
 const router = express.Router();
 
-const { isToken } = require("../middlewares");
+const { isToken } = require('../middlewares');
 const UserController = require('../controllers/user-controller');
-
 
 router.get('/', isToken, UserController.index);
 
@@ -14,7 +13,7 @@ router.post('/sign', celebrate({
     userPassword: Joi.string().required(),
     userEmail: Joi.string().required().email(),
   })
-}), UserController.sign );
+}), UserController.sign);
 
 router.post('/create', celebrate({
   [Segments.BODY]: Joi.object().keys({
@@ -48,6 +47,5 @@ router.put('/update/:id', celebrate({
     userEmail: Joi.string().optional().email()
   }),
 }), isToken, UserController.update);
-
 
 module.exports = router;
